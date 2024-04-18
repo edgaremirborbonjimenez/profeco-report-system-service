@@ -4,7 +4,7 @@ import "google/protobuf/timestamp.proto";
 package report;
 
 service ReportService{
-    rpc CreateReport (CreateReportDto) returns (Report) {}
+    rpc CreateReport (CreateReportDto) returns (Empty) {}
     rpc FindReportsByMarket (FindReportsByMarketDto) returns (ReportsList) {}
     rpc ReportsPagination (stream PaginationDto) returns (stream ReportsList) {}
 }

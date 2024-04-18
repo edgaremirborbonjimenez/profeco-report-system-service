@@ -4,6 +4,7 @@ import { CreateReportDto,Report, Status } from './types';
 @Injectable()
 export class ReportsService {
   createReport(createReportDto: CreateReportDto):Report{
+    console.log(createReportDto)
     console.log("Reporte");
     const report:Report={
       id:"123",
@@ -27,6 +28,8 @@ export class ReportsService {
         url_img: "dfawe"
     }
     }
+    console.log("Reporte");
+    console.log(report);
     return report;
   }
 }
