@@ -9,6 +9,7 @@ service ReportService{
     rpc ReportsPagination (stream PaginationDto) returns (stream ReportsList) {}
 }
 
+message Empty{}
 
 message PaginationDto{
     int32 page = 1;

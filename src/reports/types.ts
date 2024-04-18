@@ -1,9 +1,24 @@
 import { InterceptingListenerImpl } from "@grpc/grpc-js/build/src/call-interface";
 
+export interface Empty{}
 export interface CreateReportDto{
     user:User;
     market:Market;
     product:Product;
+}
+
+export interface Report{
+    id:string;
+    status:Status;
+    date_attended:Date;
+    user?:User;
+    market?:Market;
+    product?:Product
+}
+
+export enum Status{
+    ATTENDED,
+    UNATTENDED
 }
 
 interface User{
