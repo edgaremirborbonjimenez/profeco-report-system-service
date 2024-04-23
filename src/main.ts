@@ -19,12 +19,3 @@ async function bootstrap() {
   await app.listen();
 }
 bootstrap();
-/*
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.connectMicroservice<MicroserviceOptions>(grpcOptions);
-  await app.listen(50052);
-  console.log(`Application is running on: ${await app.getUrl()}`);
-}
-bootstrap();
-*/

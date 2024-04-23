@@ -10,7 +10,7 @@ export interface CreateReportDto{
 export interface Report{
     id:string;
     status:Status;
-    date_attended:Date;
+    dateAttended:string;
     user:User;
     market:Market;
     product:Product
@@ -23,20 +23,20 @@ export enum Status{
 
 interface User{
     id:string;
-    names:string;
-    lastnames:string;
+    name:string;
+    lastname:string;
     email:string;
 }
 
 interface Market{
     id:string;
     name:string;
-    url_img:string;
+    urlImg:string;
 }
 
 interface Product{
     id:string;
     brand:string
     name:string;
-    url_img:string;
+    urlImg:string;
 }

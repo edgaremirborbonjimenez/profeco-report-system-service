@@ -10,9 +10,13 @@ export class ReportsController {
 
   @GrpcMethod('ReportService','CreateReport')
   createReport(data:CreateReportDto):Promise<Report>{
+    console.log("Nueva peticion:")
+    console.log(data);
+    console.log("--------------------------------")
     const report:Report = this.reportsService.createReport(data);
-    console.log('Report1')
+    console.log('Report')
     console.log(report);
+    console.log("--------------------------------")
     return Promise.resolve(report);
   }
 }
