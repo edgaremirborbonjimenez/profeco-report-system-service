@@ -11,9 +11,9 @@ export interface Report{
     id:string;
     status:Status;
     date_attended:Date;
-    user?:User;
-    market?:Market;
-    product?:Product
+    user:User;
+    market:Market;
+    product:Product
 }
 
 export enum Status{

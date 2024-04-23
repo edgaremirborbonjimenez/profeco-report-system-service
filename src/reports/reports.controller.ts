@@ -9,10 +9,10 @@ export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
   @GrpcMethod('ReportService','CreateReport')
-  createReport(data:CreateReportDto):Report{
+  createReport(data:CreateReportDto):Promise<Report>{
     const report:Report = this.reportsService.createReport(data);
-    console.log('Report')
+    console.log('Report1')
     console.log(report);
-    return report;
+    return Promise.resolve(report);
   }
 }

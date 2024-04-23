@@ -4,7 +4,7 @@ import "google/protobuf/timestamp.proto";
 package report;
 
 service ReportService{
-    rpc CreateReport (CreateReportDto) returns (Empty) {}
+    rpc CreateReport (CreateReportDto) returns (Report) {}
     rpc FindReportsByMarket (FindReportsByMarketDto) returns (ReportsList) {}
     rpc ReportsPagination (stream PaginationDto) returns (stream ReportsList) {}
 }
@@ -33,10 +33,10 @@ message CreateReportDto{
 message Report{
     string id = 1;
     Status status = 2;
-    google.protobuf.Timestamp date_attended = 3;
-    User user = 4;
-    Market market = 5;
-    Product  product = 6;
+    google.protobuf.Timestamp date_attended = 4;
+    User user = 5;
+    Market market = 6;
+    Product  product = 7;
 }
 
 enum Status{
