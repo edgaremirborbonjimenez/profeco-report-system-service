@@ -1,22 +1,20 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod, MessagePattern, Payload } from '@nestjs/microservices';
+import { GrpcMethod } from '@nestjs/microservices';
 import { ReportsService } from './reports.service';
-import { CreateReportDto, Report } from './types';
-import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
+import { CreateReportDto, FindReportsByMarketDto, ReportsList } from './types';
+import { Reports } from './schemas/report.schema';
 
 @Controller()
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
   @GrpcMethod('ReportService','CreateReport')
-  createReport(data:CreateReportDto):Promise<Report>{
-    console.log("Nueva peticion:")
-    console.log(data);
-    console.log("--------------------------------")
-    const report:Report = this.reportsService.createReport(data);
-    console.log('Report')
-    console.log(report);
-    console.log("--------------------------------")
-    return Promise.resolve(report);
+  createReport(data:CreateReportDto):Promise<Reports>{
+    return this.reportsService.create(data);
+  }
+
+  @GrpcMethod('ReportService','FindReportsByMarket')
+  findReportsByMarketId(data:FindReportsByMarketDto):Promise<ReportsList>{
+    return this.reportsService.findReportByMarketId(data);
   }
 }

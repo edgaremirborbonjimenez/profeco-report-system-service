@@ -1,17 +1,49 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReportDto,Report, Status } from './types';
+import { CreateReportDto,FindReportsByMarketDto,ReportsList } from './types';
+import { InjectModel } from '@nestjs/mongoose';
+import { Reports, Status } from './schemas/report.schema';
+import { Model } from 'mongoose';
+import {
+  GrpcNotFoundException,
+  GrpcInvalidArgumentException,
+} from "nestjs-grpc-exceptions";
 
 @Injectable()
 export class ReportsService {
-  createReport(createReportDto: CreateReportDto):Report{
-    const report:Report={
-      id:"123",
-      status:Status.UNATTENDED,
+  constructor(@InjectModel(Reports.name) private reportsModel:Model<Reports>){}
+
+  async create(createReportDto:CreateReportDto):Promise<Reports>{
+    if(!createReportDto.market || !createReportDto.product || !createReportDto.user){
+      throw new GrpcInvalidArgumentException("empty params");
+    }
+    const report:Reports = {
+      status: Status.UNATTENDED,
       dateAttended: new Date().toDateString(),
-      user:createReportDto.user,
+      user: createReportDto.user,
       market: createReportDto.market,
       product: createReportDto.product
     }
-    return report;
+    const createdReport = new this.reportsModel(report);
+    const savedReport = await createdReport.save();
+    return savedReport;
   }
+
+  
+async findReportByMarketId(data:FindReportsByMarketDto):Promise<ReportsList>{
+
+  if(!data.id || !data.limit || !data.page){
+    throw new GrpcInvalidArgumentException("empty params");
+  }
+  const query = {'market.id':data.id};
+
+  const reports:Array<Reports> = await this.reportsModel
+    .find(query)
+    .skip((data.page-1)*data.limit)
+    .limit(data.limit)
+    .exec();
+  const reportes:ReportsList = {
+    reports: reports
+  };
+    return reportes;
+}
 }

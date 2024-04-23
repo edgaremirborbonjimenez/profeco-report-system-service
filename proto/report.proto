@@ -5,18 +5,12 @@ package report;
 service ReportService{
     rpc CreateReport (CreateReportDto) returns (Report) {}
     rpc FindReportsByMarket (FindReportsByMarketDto) returns (ReportsList) {}
-    rpc ReportsPagination (stream PaginationDto) returns (stream ReportsList) {}
-}
-
-message Empty{}
-
-message PaginationDto{
-    int32 page = 1;
-    int32 skip = 2;
 }
 
 message FindReportsByMarketDto{
     string id = 1;
+    int32 page = 2;
+    int32 limit = 3;
 }
 
 message ReportsList{

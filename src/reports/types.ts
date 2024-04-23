@@ -1,10 +1,21 @@
 import { InterceptingListenerImpl } from "@grpc/grpc-js/build/src/call-interface";
+import { Reports } from "./schemas/report.schema";
 
 export interface Empty{}
 export interface CreateReportDto{
     user:User;
     market:Market;
     product:Product;
+}
+
+export interface FindReportsByMarketDto{
+    id:string;
+    page:number;
+    limit:number;
+}
+
+export interface ReportsList{
+reports:Array<Reports>;
 }
 
 export interface Report{
