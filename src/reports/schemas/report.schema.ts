@@ -11,6 +11,9 @@ export type ReportDocument = HydratedDocument<Report>;
 @Schema()
 export class Reports{
 
+    @Prop()
+    reason:string;
+
     @Prop({enum:Status})
     status:Status;
 

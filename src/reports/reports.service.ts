@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReportDto,FindReportsByMarketDto,ReportsList } from './types';
+import { CreateReportDto,FindReportById,FindReportsByMarketDto,ReportsList } from './types';
 import { InjectModel } from '@nestjs/mongoose';
 import { Reports, Status } from './schemas/report.schema';
 import { Model } from 'mongoose';
@@ -17,6 +17,7 @@ export class ReportsService {
       throw new GrpcInvalidArgumentException("empty params");
     }
     const report:Reports = {
+      reason: createReportDto.reason,
       status: Status.UNATTENDED,
       dateAttended: new Date().toDateString(),
       user: createReportDto.user,
@@ -45,5 +46,14 @@ async findReportByMarketId(data:FindReportsByMarketDto):Promise<ReportsList>{
     reports: reports
   };
     return reportes;
+}
+
+async getReportById(data:FindReportById):Promise<Reports>{
+  if(!data.id){
+    throw new GrpcInvalidArgumentException("empty params");
+  }
+
+  const report:Reports = await this.reportsModel.findById(data.id);
+  return report;
 }
 }

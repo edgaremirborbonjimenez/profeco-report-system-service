@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { ReportsService } from './reports.service';
-import { CreateReportDto, FindReportsByMarketDto, ReportsList } from './types';
+import { CreateReportDto, FindReportById, FindReportsByMarketDto, ReportsList } from './types';
 import { Reports } from './schemas/report.schema';
 
 @Controller()
@@ -16,5 +16,10 @@ export class ReportsController {
   @GrpcMethod('ReportService','FindReportsByMarket')
   findReportsByMarketId(data:FindReportsByMarketDto):Promise<ReportsList>{
     return this.reportsService.findReportByMarketId(data);
+  }
+
+  @GrpcMethod('ReportService','GetReportById')
+  getReportById(data:FindReportById):Promise<Reports>{
+    return this.reportsService.getReportById(data);
   }
 }

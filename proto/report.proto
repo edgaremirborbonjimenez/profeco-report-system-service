@@ -5,6 +5,11 @@ package report;
 service ReportService{
     rpc CreateReport (CreateReportDto) returns (Report) {}
     rpc FindReportsByMarket (FindReportsByMarketDto) returns (ReportsList) {}
+    rpc GetReportById(FindReportById) returns (Report){}
+}
+
+message FindReportById{
+    string id = 1;
 }
 
 message FindReportsByMarketDto{
@@ -18,14 +23,16 @@ message ReportsList{
 }
 
 message CreateReportDto{
-    User user = 1;
-    Market market = 2;
-    Product product = 3;
+    string reason = 1;
+    User user = 2;
+    Market market = 3;
+    Product product = 4;
 }
 
 message Report{
     string id = 1;
-    Status status = 2;
+    string reason = 2;
+    Status status = 3;
     string dateAttended = 4;
     User user = 5;
     Market market = 6;
