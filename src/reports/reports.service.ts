@@ -13,7 +13,7 @@ export class ReportsService {
   constructor(@InjectModel(Reports.name) private reportsModel:Model<Reports>){}
 
   async create(createReportDto:CreateReportDto):Promise<Reports>{
-    if(!createReportDto.market || !createReportDto.product || !createReportDto.user){
+    if(!createReportDto.market || !createReportDto.product || !createReportDto.user || !createReportDto.reason){
       throw new GrpcInvalidArgumentException("empty params");
     }
     const report:Reports = {

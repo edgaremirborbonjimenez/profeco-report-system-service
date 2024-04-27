@@ -24,6 +24,7 @@ reports:Array<Reports>;
 
 export interface Report{
     id:string;
+    reason:string;
     status:Status;
     dateAttended:string;
     user:User;

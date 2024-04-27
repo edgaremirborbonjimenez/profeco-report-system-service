@@ -10,7 +10,8 @@ export class ReportsController {
 
   @GrpcMethod('ReportService','CreateReport')
   createReport(data:CreateReportDto):Promise<Reports>{
-    return this.reportsService.create(data);
+    const report = this.reportsService.create(data);
+    return report;
   }
 
   @GrpcMethod('ReportService','FindReportsByMarket')
