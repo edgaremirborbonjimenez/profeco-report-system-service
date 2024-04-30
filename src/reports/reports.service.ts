@@ -7,10 +7,19 @@ import {
   GrpcNotFoundException,
   GrpcInvalidArgumentException,
 } from "nestjs-grpc-exceptions";
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class ReportsService {
-  constructor(@InjectModel(Reports.name) private reportsModel:Model<Reports>){}
+  constructor(
+    @InjectModel(Reports.name) private reportsModel:Model<Reports>,
+    private readonly amqpConnection: AmqpConnection,
+  ){}
+
+  async reportCreatedMessage(report:Reports){
+    await this.amqpConnection.publish('reportsExchange','report',report);
+    console.log(" [x] Sent Report Created %s", report);
+  }
 
   async create(createReportDto:CreateReportDto):Promise<Reports>{
     if(!createReportDto.market || !createReportDto.product || !createReportDto.user || !createReportDto.reason){
@@ -26,6 +35,7 @@ export class ReportsService {
     }
     const createdReport = new this.reportsModel(report);
     const savedReport = await createdReport.save();
+    this.reportCreatedMessage(savedReport);
     return savedReport;
   }
 

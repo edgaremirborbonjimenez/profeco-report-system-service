@@ -6,9 +6,10 @@ import { GrpcReport, Rabbit } from './configs/microservice.options';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const microservicesGrpcReport = app.connectMicroservice<MicroserviceOptions>(GrpcReport);
-  const rabbitMQ = app.connectMicroservice<MicroserviceOptions>(Rabbit)
+  //const rabbitMQ = app.connectMicroservice<MicroserviceOptions>(Rabbit)
   
   await app.startAllMicroservices();
-  await app.init();
+  //await app.init();
+  await app.listen(3000);
 }
 bootstrap();
