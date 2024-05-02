@@ -6,7 +6,7 @@ export enum Status{
     UNATTENDED = 'UNATTENDED'
 }
 
-export type ReportDocument = HydratedDocument<Report>;
+export type ReportDocument = HydratedDocument<Reports>;
 
 @Schema()
 export class Reports{
