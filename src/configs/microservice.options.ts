@@ -8,15 +8,3 @@ export const GrpcReport:MicroserviceOptions ={
     url: 'localhost:50052',
   }
 }
-
-export const Rabbit:MicroserviceOptions ={
-  transport: Transport.RMQ,
-  options:{
-    urls: ['amqp://localhost:5672'],
-    queue: 'report_queue',
-    //noAck: false,
-    queueOptions:{
-      durable: true
-    }
-  }
-}

@@ -52,7 +52,17 @@ interface Market{
 
 interface Product{
     id:string;
-    brand:string
     name:string;
     urlImg:string;
+}
+
+export interface RecievedReportDTO{
+    report:ReportsDTO;
+    idMarket:string;
+}
+
+interface ReportsDTO{
+    id:string;
+    reason:string;
+    product:Product;        
 }

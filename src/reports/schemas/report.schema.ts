@@ -17,8 +17,8 @@ export class Reports{
     @Prop({enum:Status})
     status:Status;
 
-    @Prop()
-    dateAttended:string;
+    @Prop({default:null})
+    dateAttended?:string;
 
     @Prop(raw({
         id:{type:String},
@@ -37,7 +37,6 @@ export class Reports{
 
     @Prop(raw({
         id:{type:String},
-        brand:{type:String},
         name:{type:String},
         urlImg:{type:String},
     }))
@@ -61,7 +60,6 @@ interface Market{
 
 interface Product{
     id:string;
-    brand:string
     name:string;
     urlImg:string;
 }
