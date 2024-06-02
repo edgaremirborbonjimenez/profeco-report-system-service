@@ -56,7 +56,8 @@ export class ReportsService {
           }
       }
   }
-    await this.amqpConnection.publish('notifier','reports-route',reportRecieved);
+    //await this.amqpConnection.publish('notifier','reports-route',reportRecieved);
+    await this.amqpConnection.publish('notifier','',reportRecieved);
     console.log(`[X] Message published ${reportRecieved}`);
   }
   
